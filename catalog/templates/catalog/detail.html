@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ cheese.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ cheese.name }}</h1>
+    <p><strong>Тип молока:</strong> {{ cheese.get_milk_type_display }}</p>
+    <p><strong>Жирность:</strong> {{ cheese.fat_content }}%</p>
+    {% if cheese.weight %}
+        <p><strong>Вес:</strong> {{ cheese.weight }} г</p>
+    {% endif %}
+    <p><strong>Твёрдый:</strong> {{ cheese.is_hard|yesno:"да,нет" }}</p>
+    <p><strong>С плесенью:</strong> {{ cheese.has_mold|yesno:"да,нет" }}</p>
+    <p><a href="{% url 'index' %}">← Назад к списку</a></p>
+{% endblock %}

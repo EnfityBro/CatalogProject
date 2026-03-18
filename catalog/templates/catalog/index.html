@@ -1,0 +1,17 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Список сыров{% endblock %}
+
+{% block content %}
+    <h1>Наши сыры</h1>
+    <ul>
+        {% for cheese in cheeses %}
+            <li>
+                <a href="{% url 'detail' cheese.id %}">{{ cheese.name }}</a>
+                ({{ cheese.get_milk_type_display }}, жирность {{ cheese.fat_content }}%)
+            </li>
+        {% empty %}
+            <li>Пока нет сыров.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
