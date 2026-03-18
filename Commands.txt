@@ -1,0 +1,31 @@
+Виртуальное окружение
+В папке проекта:
+python -m venv venv
+venv\Scripts\activate
+
+
+Установка пакетов
+pip install django selenium webdriver-manager
+
+
+Создание проекта
+django-admin startproject CatalogProject
+cd CatalogProject
+python manage.py startapp catalog
+
+
+Миграции
+python manage.py makemigrations
+python manage.py migrate
+
+
+Суперпользователь
+python manage.py createsuperuser
+
+
+Запуск проекта
+python manage.py runserver
+
+
+Запуск тестов
+python manage.py test catalog

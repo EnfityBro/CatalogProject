@@ -1,0 +1,6 @@
+1. https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+2. Выбрать версию, соответствующую Edge
+    (зайти в Edge -> настройки -> о программе Microsoft Edge (о браузере))
+3. Скачать архив
+4. Распаковать архив в папку, скопировать ее путь
+5. Указать этот путь в driver_path в SeleniumTests.setUpClass
