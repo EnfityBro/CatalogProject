@@ -4,11 +4,30 @@
 
 {% block content %}
     <h1>Наши сыры</h1>
+
+    <!-- Форма фильтрации -->
+    <form method="get" action="{% url 'index' %}">
+        <fieldset>
+            <legend>Поиск</legend>
+            {{ form.as_p }}
+            <button type="submit">Применить фильтр</button>
+            <a href="{% url 'index' %}">Сбросить</a>
+        </fieldset>
+    </form>
+
+    <!-- Кнопка добавления нового сыра -->
+    <p><a href="{% url 'cheese_add' %}">+ Добавить новый сыр</a></p>
+
+    <!-- Список товаров -->
     <ul>
         {% for cheese in cheeses %}
             <li>
-                <a href="{% url 'detail' cheese.id %}">{{ cheese.name }}</a>
+                <!-- Изменяем cheese.id на cheese.pk (работает и так, и так, но для единообразия) -->
+                <a href="{% url 'detail' cheese.pk %}">{{ cheese.name }}</a>
                 ({{ cheese.get_milk_type_display }}, жирность {{ cheese.fat_content }}%)
+                <!-- Кнопки редактирования и удаления -->
+                <a href="{% url 'cheese_edit' cheese.pk %}">Редактировать</a>
+                <a href="{% url 'cheese_delete' cheese.pk %}">Удалить</a>
             </li>
         {% empty %}
             <li>Пока нет сыров.</li>

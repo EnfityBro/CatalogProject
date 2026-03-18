@@ -7,12 +7,16 @@
         body { font-family: Arial, sans-serif; margin: 20px; background-image: linear-gradient(0.258turn,rgba(255,183,0,1) 0%,rgba(255,213,0,1) 100%); }
         nav a { margin-right: 15px; text-decoration: none; color: #333; }
         nav a:hover { text-decoration: underline; }
+        form fieldset { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
+        form p { margin: 5px 0; }
+        button, a.button { padding: 5px 10px; background: #f0f0f0; border: 1px solid #ccc; text-decoration: none; color: black; }
     </style>
 </head>
 <body>
     <nav>
         <a href="{% url 'index' %}">Главная</a>
         <a href="{% url 'about' %}">О проекте</a>
+        <a href="{% url 'cheese_add' %}">+ Добавить сыр</a>
     </nav>
     <hr>
     {% block content %}{% endblock %}
