@@ -28,5 +28,10 @@ python manage.py createsuperuser
 python manage.py runserver
 
 
-Запуск тестов
+Запуск тестов (старая версия)
 python manage.py test catalog
+
+Запуск тестов (новая версия)
+python manage.py test catalog.tests.test_routes
+python manage.py test catalog.tests.test_content
+python manage.py test catalog.tests --verbosity=2
