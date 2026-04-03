@@ -17,6 +17,7 @@ python manage.py startapp catalog
 Миграции
 python manage.py makemigrations
 python manage.py migrate
+rm db.sqlite3 (удалить БД)
 
 
 Суперпользователь
