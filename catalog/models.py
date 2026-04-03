@@ -95,7 +95,7 @@ class Cart(models.Model):
     def get_total(self) -> Decimal:
         total = sum(item.get_total() for item in self.items.all())
         if self.extra_discount_percent:
-            total = total * (Decimal(1) - self.extra_discount_percent / Decimal(100))
+            total = round(total * (Decimal(1) - self.extra_discount_percent / Decimal(100)), 2)
         return total
 
     def __str__(self):

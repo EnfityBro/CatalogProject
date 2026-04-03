@@ -7,7 +7,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Войти</button>
+        <button type="submit" style="cursor: pointer;">Войти</button>
     </form>
     <a href="{% url 'index' %}">На главную</a>
 {% endblock %}

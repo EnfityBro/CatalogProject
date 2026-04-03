@@ -10,19 +10,19 @@
             Привет, {{ user.get_username }}!
             <form method="post" action="{% url 'logout' %}" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
+                <button type="submit" style="cursor: pointer;">
                     Выйти
                 </button>
             </form>
         </p>
     {% else %}
-        <a href="{% url 'login' %}">Войти</a>
+        <a href="{% url 'login' %}">[Войти]</a>
     {% endif %}
 
-    <a href="{% url 'index' %}">Сбросить фильтры</a>
+    <a href="{% url 'index' %}">[Сбросить фильтры]</a>
 
     {% if is_merchandiser or is_admin %}
-        <a href="{% url 'cheese_add' %}">[+ Добавить новый сыр]</a>
+        <a href="{% url 'cheese_add' %}">[Добавить новый сыр]</a>
     {% endif %}
     {% if is_sales_manager or is_admin %}
         <a href="{% url 'my_cart' %}">[Моя партия]</a>
@@ -33,7 +33,7 @@
         <fieldset>
             <legend>Поиск</legend>
             {{ form.as_p }}
-            <button type="submit">Применить фильтр</button>
+            <button type="submit" style="cursor: pointer;">Применить фильтр</button>
         </fieldset>
     </form>
 
