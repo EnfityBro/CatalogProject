@@ -4,12 +4,23 @@
 
 {% block content %}
     <h1>{{ cheese.name }}</h1>
-    <p><strong>Тип молока:</strong> {{ cheese.get_milk_type_display }}</p>
+    <p><strong>Тип молока:</strong> {{ cheese.milk_type }}</p>
     <p><strong>Жирность:</strong> {{ cheese.fat_content }}%</p>
-    {% if cheese.weight %}
-        <p><strong>Вес:</strong> {{ cheese.weight }} г</p>
-    {% endif %}
+    <p><strong>Вес:</strong> {{ cheese.weight|default:"—" }} г</p>
     <p><strong>Твёрдый:</strong> {{ cheese.is_hard|yesno:"да,нет" }}</p>
     <p><strong>С плесенью:</strong> {{ cheese.has_mold|yesno:"да,нет" }}</p>
-    <p><a href="{% url 'index' %}">← Назад к списку</a></p>
+
+    <h3>Цены</h3>
+    <p>За единицу: {{ cheese.price }} ₽</p>
+    <p>Мелкий опт (от {{ cheese.small_wholesale_quantity }} шт.): {{ cheese.small_wholesale_price }} ₽</p>
+    <p>Крупный опт (от {{ cheese.large_wholesale_quantity }} шт.): {{ cheese.large_wholesale_price }} ₽</p>
+
+    {% if is_merchandiser or is_admin %}
+        <a href="{% url 'cheese_edit' cheese.pk %}">[Редактировать товар]</a>
+    {% endif %}
+    {% if is_sales_manager or is_admin %}
+        <a href="{% url 'add_to_cart' cheese.pk %}">[Добавить в партию]</a>
+    {% endif %}
+
+    <a href="{% url 'index' %}">← Назад к списку</a>
 {% endblock %}

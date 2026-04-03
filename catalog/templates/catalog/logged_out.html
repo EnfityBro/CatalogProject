@@ -1,0 +1,9 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Партия на отправку{% endblock %}
+
+{% block content %}
+    <h1>Вы успешно вышли из системы</h1>
+    <p><a href="{% url 'login' %}">Войти снова</a></p>
+    <p><a href="{% url 'index' %}">Вернуться на главную</a></p>
+{% endblock %}

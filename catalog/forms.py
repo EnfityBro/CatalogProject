@@ -10,6 +10,9 @@ class CheeseForm(forms.ModelForm):
             'milk_type': forms.Select(attrs={'class': 'form-control'}),
             'fat_content': forms.NumberInput(attrs={'step': '0.1', 'class': 'form-control'}),
             'weight': forms.NumberInput(attrs={'step': '0.1', 'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'}),
+            'small_wholesale_price': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'}),
+            'large_wholesale_price': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'}),
         }
 
     def clean_fat_content(self):
@@ -28,39 +31,16 @@ class CheeseForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=100,
-        required=False,
-        label='Название',
-        widget=forms.TextInput(attrs={'placeholder': 'Введите название'})
-    )
+    name = forms.CharField(max_length=100, required=False, label='Название',
+                           widget=forms.TextInput(attrs={'placeholder': 'Введите название'}))
     milk_type = forms.ModelChoiceField(
-        queryset=MilkType.objects.all(),
-        required=False,
-        label='Тип молока',
-        empty_label='Все',
+        queryset=MilkType.objects.all(), required=False, label='Тип молока', empty_label='Все'
     )
-    fat_min = forms.FloatField(
-        required=False,
-        label='Жирность от',
-        min_value=0,
-        max_value=70,
-        widget=forms.NumberInput(attrs={'step': '0.1', 'placeholder': 'мин'})
-    )
-    fat_max = forms.FloatField(
-        required=False,
-        label='Жирность до',
-        min_value=0,
-        max_value=70,
-        widget=forms.NumberInput(attrs={'step': '0.1', 'placeholder': 'макс'})
-    )
-    is_hard = forms.NullBooleanField(
-        required=False,
-        label='Твёрдый',
-        widget=forms.Select(choices=[('', 'Все'), ('true', 'Да'), ('false', 'Нет')])
-    )
-    has_mold = forms.NullBooleanField(
-        required=False,
-        label='С плесенью',
-        widget=forms.Select(choices=[('', 'Все'), ('true', 'Да'), ('false', 'Нет')])
-    )
+    fat_min = forms.FloatField(required=False, label='Жирность от', min_value=0, max_value=70,
+                               widget=forms.NumberInput(attrs={'step': '0.1', 'placeholder': 'мин'}))
+    fat_max = forms.FloatField(required=False, label='Жирность до', min_value=0, max_value=70,
+                               widget=forms.NumberInput(attrs={'step': '0.1', 'placeholder': 'макс'}))
+    is_hard = forms.NullBooleanField(required=False, label='Твёрдый',
+                                     widget=forms.Select(choices=[('', 'Все'), ('true', 'Да'), ('false', 'Нет')]))
+    has_mold = forms.NullBooleanField(required=False, label='С плесенью',
+                                      widget=forms.Select(choices=[('', 'Все'), ('true', 'Да'), ('false', 'Нет')]))

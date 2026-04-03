@@ -3,7 +3,30 @@
 {% block title %}Список сыров{% endblock %}
 
 {% block content %}
-    <h1>Наши сыры</h1>
+    <h1>Каталог сыров</h1>
+
+    {% if user.is_authenticated %}
+        <p>
+            Привет, {{ user.get_username }}!
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
+                    Выйти
+                </button>
+            </form>
+        </p>
+    {% else %}
+        <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+
+    <a href="{% url 'index' %}">Сбросить фильтры</a>
+
+    {% if is_merchandiser or is_admin %}
+        <a href="{% url 'cheese_add' %}">[+ Добавить новый сыр]</a>
+    {% endif %}
+    {% if is_sales_manager or is_admin %}
+        <a href="{% url 'my_cart' %}">[Моя партия]</a>
+    {% endif %}
 
     <!-- Форма фильтрации -->
     <form method="get" action="{% url 'index' %}">
@@ -11,12 +34,8 @@
             <legend>Поиск</legend>
             {{ form.as_p }}
             <button type="submit">Применить фильтр</button>
-            <a href="{% url 'index' %}">Сбросить</a>
         </fieldset>
     </form>
-
-    <!-- Кнопка добавления нового сыра -->
-    <p><a href="{% url 'cheese_add' %}">+ Добавить новый сыр</a></p>
 
     <!-- Список товаров -->
     {% if cheeses %}
@@ -24,13 +43,18 @@
             {% for cheese in cheeses %}
                 <li>
                     <a href="{% url 'detail' cheese.pk %}">{{ cheese.name }}</a>
-                    ({{ cheese.milk_type }}, жирность {{ cheese.fat_content }}%)
-                    <a href="{% url 'cheese_edit' cheese.pk %}">[Редактировать]</a>
-                    <a href="{% url 'cheese_delete' cheese.pk %}">[Удалить]</a>
+                    ({{ cheese.milk_type }}, {{ cheese.price }} ₽)
+                    {% if is_merchandiser or is_admin %}
+                        <a href="{% url 'cheese_edit' cheese.pk %}">[Редактировать]</a>
+                        <a href="{% url 'cheese_delete' cheese.pk %}">[Удалить]</a>
+                    {% endif %}
+                    {% if is_sales_manager or is_admin %}
+                        <a href="{% url 'add_to_cart' cheese.pk %}">[Добавить в партию]</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>Пока нет сыров.</p>
+        <p>Нет сыров.</p>
     {% endif %}
 {% endblock %}
